@@ -1,0 +1,11 @@
+{
+  "name": "insta-hashtags-app",
+  "version": "1.0.0",
+  "description": "For convenient generation of hashtags",
+  "scripts": {
+    "start": "harp server --port $PORT"
+  },
+  "dependencies": {
+    "harp": "*"
+  }
+}
