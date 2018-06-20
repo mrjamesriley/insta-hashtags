@@ -1,29 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Category, Hashtag, User
 import json
 
-# Create your views here.
 
 def index(request):
+    all_categories = Category.objects.all()
+    catergories_response = []
 
-  categories_data = [
-    {
-      'name': 'general',
-      'tags': ['atkinsdiet', 'fatadapted', 'guthealth']
-    },
+    for category in all_categories:
+      hashtags_list = []
+      all_hashtags = category.hashtag_set.all()
 
-    {
-      'name': 'keto_foods',
-      'tags': ['brain_foods', 'eatfat', 'paleo']
-    },
+      for hashtag in all_hashtags:
+        hashtags_list.append({
+          'name':hashtag.hashtag,
+          'id': hashtag.id,
+        })
 
-    {
-      'name': 'biohacking',
-      'tags': ['bebetter', 'biohacking', 'wellness']
-    }
-  ]
+      category_dict = {
+        'name': category.category_name,
+        'id': category.category_id,
+        'hashtags': hashtags_list
+      }
+      catergories_response.append(category_dict)
 
-  data = json.dumps(categories_data)
-
-  return HttpResponse(data, content_type='application/json')
-
+    all_categories_json = json.dumps(catergories_response)
+    return HttpResponse(all_categories_json)

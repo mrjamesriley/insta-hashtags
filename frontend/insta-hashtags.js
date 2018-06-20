@@ -7,7 +7,7 @@ var app = new Vue({
     checkedCategories: []
   },
   created: function() {
-    let categoriesEndpoint = 'http://127.0.0.1:8000/categories/'
+    let categoriesEndpoint = 'http://localhost:8000/categories/allcategories'
 
     this.$http.get(categoriesEndpoint).then(response => {
       this.categories = response.body
