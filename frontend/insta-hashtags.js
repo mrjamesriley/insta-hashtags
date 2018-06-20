@@ -7,7 +7,7 @@ var app = new Vue({
     checkedCategories: []
   },
   created: function() {
-    let categoriesEndpoint = 'http://localhost:8000/categories/allcategories'
+    let categoriesEndpoint = 'http://localhost:8000/categories'
 
     this.$http.get(categoriesEndpoint).then(response => {
       this.categories = response.body
@@ -18,15 +18,13 @@ var app = new Vue({
   },
   methods: {
     generate: function() {
-      var sampledTags = _.flatten(_.map(this.checkedCategories, function(category) {
-        return _.values(category.tags)
+      var hashtags = _.flatten(_.map(this.checkedCategories, function(category) {
+        return _.map(category.hashtags, function(hashtag) {
+          return "#" + hashtag.name
+        })
       }))
 
-      var formattedTags = sampledTags.map(function(tag) {
-        return "#" + tag
-      })
-
-      this.hashtags = _.sampleSize(formattedTags, 15).join(' ')
+      this.hashtags = _.sampleSize(hashtags, 15).join(' ')
     }
   }
 })
