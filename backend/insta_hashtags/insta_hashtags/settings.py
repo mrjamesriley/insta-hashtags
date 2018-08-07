@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'corsheaders',
     'categories.apps.CategoriesConfig',
+    'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'insta_hashtags.urls'
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'insta_hashtags.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [(os.path.join(BASE_DIR, '.\\accounts\\templates')),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hashtags',
-        'USER':'root',
-        'PASSWORD': '',
+        'USER':'Attir',
+        'PASSWORD': 'password',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
@@ -127,3 +129,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+

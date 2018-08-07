@@ -26,4 +26,5 @@ def index(request):
       catergories_response.append(category_dict)
 
     all_categories_json = json.dumps(catergories_response)
-    return HttpResponse(all_categories_json)
+    #return HttpResponse(all_categories_json)
+    return render(request, 'categories/test1.html') #This is just to test to base html
