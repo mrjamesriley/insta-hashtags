@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <title>Add Hashtag</title>
+{% endblock %}
+
+{% block body %}
+
+  <h2>Add a Category<h2>
+
+  <form method="POST" action="/categories/add">
+    <input class="form-control" name="category" placeholder="health" 
+      style="width: 400px; display: inline" required />
+    <button class="btn btn-primary" type="submit">Add</button>
+  </form>
+
+  <h2>Add a Hashtag<h2>
+    
+  <select class="form-control" style="width: 200px; display: inline">
+    <option value="gaming">Gaming</option>
+    <option value="pokemon">Pokemon</option>
+  </select>
+
+  <input name="hashtag" placeholder="keto" class="form-control" style="width: 400px; display:inline" />
+  <button type="submit" class="btn btn-primary">Add</button>
+
+{% endblock %}
