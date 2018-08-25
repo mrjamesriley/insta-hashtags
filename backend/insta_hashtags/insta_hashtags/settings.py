@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'generator.apps.GeneratorConfig',
     'categories.apps.CategoriesConfig',
     'accounts.apps.AccountsConfig',
+    'generator.apps.GeneratorConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -83,12 +84,8 @@ WSGI_APPLICATION = 'insta_hashtags.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hashtags',
-        'USER':'Attir',
-        'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'hashtags'
     }
 }
 

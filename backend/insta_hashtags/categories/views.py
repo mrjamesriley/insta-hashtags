@@ -27,4 +27,5 @@ def index(request):
 
     all_categories_json = json.dumps(catergories_response)
     return HttpResponse(all_categories_json)
+    # return render(request, 'categories/test1.html') #This is just to test to base html
 

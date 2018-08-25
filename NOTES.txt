@@ -1,1 +1,19 @@
-Copy Button
+ToDo For InstaHashtags
+
+- show login/logout based on your logged in status
+- the categories shown for generator should only be for the logged in user
+- get app running on heroic, with database
+- handle the category add request, the post to /categories/add
+- make the ‘add a hashtag’ fields a form, which posts to /hashtags/add
+- have a categories page, which lists all categories, hashtag count, and edit page
+(where other hashtags can be added)
+- needs a homepage
+- a contact or complaints page, which sends email
+- get all pycache paths blocked and removed from Git (added to ignore)
+(so that they don’t come up in git diff)
+
+- look into RESTful URLs and how best to implement this with Python
+/categories
+GET /categories = index view
+POST /categories = create a category
+GET /categories/pokemon = view that 
