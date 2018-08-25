@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'corsheaders',
+    'generator.apps.GeneratorConfig',
     'categories.apps.CategoriesConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',

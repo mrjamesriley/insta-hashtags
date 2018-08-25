@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Add Hashtag</title>
+{% endblock %}
+
+{% block body %}
+
+<h2>Add Category</h2>
+
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {{ category_form }}
+        <button type="submit" name="category_form" value="category_form">Submit</button>
+    </form>
+    <h4>
+        <br>
+        {% if category_name is not None %}
+        {{ category_name }} has been added!
+        {% endif %}
+    </h4>
+</div>
+
+<br>
+<br>
+
+<h2>Add Hashtag</h2>
+
+<div class="container">
+
+     <form method="post">
+        {% csrf_token %}
+        {{ hashtag_form }}
+        <button type="submit" name="hashtag_form" value="hashtag_form">Submit</button>
+    </form>
+    <h4>
+        <br>
+        {% if hashtag is not None %}
+        {{ hashtag }} has been added!
+        {% endif %}
+    </h4>
+</div>
+
+{% endblock %}

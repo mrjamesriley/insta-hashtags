@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Generator</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Generator</h3>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <style type="text/css">
+    body {
+    padding: 20px
+    }
+    .categories {
+    width: 100%;
+    max-width: 400px;
+    }
+    .categories label, .categories button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #cdcdcd;
+    position: relative;
+    }
+    .categories label {
+    text-transform: capitalize;
+    text-align: left;
+    padding-left: 40px;
+    }
+    .categories button {
+    border: none;
+    }
+    .categories input {
+    position: absolute;
+    top: 12px;
+    left: 13px;
+    }
+    .categories textarea {
+    font-size: 12px
+    }
+    .categories textarea::placeholder {
+    color: #cdcdcd;
+    font-family: verdana;
+    }
+    .error-panel {
+    color: #fff;
+    background-color: #ce1616;
+    padding: 10px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    }
+    [v-cloak] {
+    display: none
+    }
+    </style>
+
+    <div class="categories" id="categories-app" v-cloak>
+
+    <div class="error-panel" v-if="errorMessage">
+        [[ errorMessage ]]
+    </div>
+
+    <label class="btn btn-light" v-for="category in categories">
+    <input type="checkbox" :value="category" v-model="checkedCategories" />
+        [[ category.name.replace('_', ' ') ]]
+    </label>
+
+    <button class="btn btn-primary" v-on:click="generate">
+      Generate
+    </button>
+
+    <textarea class="form-control" rows="10"
+    placeholder="select categories above and hit generate..."
+    v-model="hashtags"></textarea>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <!--<script src="insta-hashtags.js"></script>-->
+
+    <script type="text/javascript">
+        var app = new Vue({
+        el: '#categories-app',
+        delimiters: ['[[', ']]'],
+        data: {
+            hashtags: '',
+            errorMessage: null,
+            categories: [],
+            checkedCategories: []
+        },
+        created: function() {
+            let categoriesEndpoint = '/categories'
+            this.$http.get(categoriesEndpoint).then(response => {
+            this.categories = response.body
+            }, response => {
+            this.errorMessage = "Could not connect to server, please try again later."
+            });
+        },
+        methods: {
+            generate: function() {
+            var hashtags = _.flatten(_.map(this.checkedCategories, function(category) {
+                return _.map(category.hashtags, function(hashtag) {
+                return "#" + hashtag.name
+                })
+            }))
+            this.hashtags = _.sampleSize(hashtags, 15).join(' ')
+            }
+        }
+        })
+    </script>
+
+{% endblock %}

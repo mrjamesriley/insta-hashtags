@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Category, Hashtag, User
+from .models import Category
 import json
 
 
 def index(request):
-    all_categories = Category.objects.all()
+    all_categories = Category.objects.filter(user_id= request.user.id)
     catergories_response = []
 
     for category in all_categories:
@@ -26,5 +26,5 @@ def index(request):
       catergories_response.append(category_dict)
 
     all_categories_json = json.dumps(catergories_response)
-    #return HttpResponse(all_categories_json)
-    return render(request, 'categories/test1.html') #This is just to test to base html
+    return HttpResponse(all_categories_json)
+

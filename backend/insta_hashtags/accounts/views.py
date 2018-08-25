@@ -3,10 +3,6 @@ from .forms import SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserChangeForm
 
-
-
-
-
 def home(request):
     return render(request, 'accounts/home.html')
 
