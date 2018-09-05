@@ -9,7 +9,7 @@
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
@@ -41,7 +41,7 @@
     border: none;
     }
 
-    .categories input {
+    .generator input {
     position: absolute;
     top: 12px;
     left: 13px;
@@ -71,22 +71,41 @@
 
     <div class="categories" id="categories-app" v-cloak>
 
-    <div class="error-panel" v-if="errorMessage">
-        [[ errorMessage ]]
-    </div>
+      <div class="error-panel" v-if="errorMessage">
+          [[ errorMessage ]]
+      </div>
 
-    <label class="btn btn-light" v-for="category in categories">
-    <input type="checkbox" :value="category" v-model="checkedCategories" />
-        [[ category.name.replace('_', ' ') ]]
-    </label>
+      <div class="generator">
+        <label class="btn btn-light" v-for="category in categories">
+          <input type="checkbox" :value="category" v-model="checkedCategories" />
+          [[ category.name.replace('_', ' ') ]]
+        </label>
 
-    <button class="btn btn-primary" v-on:click="generate">
-      Generate
-    </button>
+        <button class="btn btn-primary" v-on:click="generate">
+          Generate
+        </button>
 
-    <textarea class="form-control" rows="10"
-    placeholder="select categories above and hit generate..."
-    v-model="hashtags"></textarea>
+        <textarea class="form-control" rows="10"
+        placeholder="select categories above and hit generate..."
+      v-model="hashtags"></textarea>
+      </div>
+
+      <div class="control-panel">
+        <ul v-for="category in categories">
+          <li>
+            [[ category.name ]]
+            <ul>
+              <li v-for="hashtag in category.hashtags">
+                [[ hashtag.name ]]
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>Add Category</h4>
+        <input class="form-control" placeholder="#music" v-model="newCategory" />
+        <input type="submit" value="add" v-on:click="addCategory">
+      </div>
 
     </div>
 
@@ -96,37 +115,44 @@
     <!--<script src="insta-hashtags.js"></script>-->
 
     <script type="text/javascript">
-        var app = new Vue({
+      var app = new Vue({
         el: '#categories-app',
         delimiters: ['[[', ']]'],
         data: {
             hashtags: '',
             errorMessage: null,
             categories: [],
-            checkedCategories: []
+            checkedCategories: [],
+            newCategory: 'speaker'
         },
         created: function() {
             let categoriesEndpoint = '/categories'
 
             this.$http.get(categoriesEndpoint).then(response => {
-            this.categories = response.body
-            }, response => {
-            this.errorMessage = "Could not connect to server, please try again later."
+                this.categories = response.body
+                }, response => {
+                    this.errorMessage = "Could not connect to server, please try again later."
             });
-
         },
+
         methods: {
-            generate: function() {
+          generate: function() {
             var hashtags = _.flatten(_.map(this.checkedCategories, function(category) {
                 return _.map(category.hashtags, function(hashtag) {
                 return "#" + hashtag.name
                 })
             }))
-
             this.hashtags = _.sampleSize(hashtags, 15).join(' ')
-            }
+          },
+          addCategory: function() {
+            console.log("now submitting " + this.newCategory + " to /categories")
+
+            this.$http.post('/categories', { name: this.newCategory }).then(function(response) {
+              console.log('yay all is done!')
+            })
+          }
         }
-        })
+      })
     </script>
 
 {% endblock %}
