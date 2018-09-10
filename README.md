@@ -2,27 +2,15 @@
 
 A simple tool to help generate hashtags for your Instagram posts based on categories and lists of hashtags which you define. You'll need both the front and backend servers running, as follows:
 
-## Frontend
-
-Built with Vue.js Framework
-
-### Usage
-
-```
-cd frontend
-http-server 
-```
-
-Access in browser at: `http://localhost:8080`
-
 ## Backend
 
-Built with Django 
+Built with Django, and Vue for the frontend
 
 ### Setup
 
-1. create a MySQL database called 'hashtags'
-2. update Database credentials if applicable in `backend/insta-hashtags/settings.py`
-3. run migrations with: `python3 manage.py migrate`
-4. create super user with: `python3 manage.py createsuperuser`
-5. run `python3 manage.py runserver`
+1. run `pipenv install` to install dependencies
+2. create a MySQL database called 'hashtags'
+3. update Database credentials if applicable in `insta-hashtags/settings.py`
+4. run migrations with: `python3 manage.py migrate`
+5. create super user with: `python3 manage.py createsuperuser`
+6. run `python3 manage.py runserver`
