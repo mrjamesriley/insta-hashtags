@@ -9,7 +9,8 @@ name = "pypi"
 
 django = "==2.0"
 django-cors-headers = "*"
-mysqlclient = "*"
+"psycopg2" = "*"
+django-heroku = "*"
 
 
 [dev-packages]
