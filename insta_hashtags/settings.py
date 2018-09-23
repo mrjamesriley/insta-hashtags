@@ -85,8 +85,8 @@ WSGI_APPLICATION = 'insta_hashtags.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'instaman',
-        'PASSWORD': '',
+        'USER': 'atz',
+        'PASSWORD':'password',
         'HOST': 'localhost',
         'NAME': 'hashtags'
     }
